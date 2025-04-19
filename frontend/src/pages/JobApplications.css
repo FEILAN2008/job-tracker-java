@@ -1,0 +1,27 @@
+/* JobApplications.css */
+
+.custom-table thead {
+    background-color: #1F3A54;
+}
+.custom-table thead th {
+    color: white;
+}
+
+.custom-table tbody tr:nth-child(odd) {
+    background-color: #e3f2fd;
+}
+.custom-table tbody tr:nth-child(even) {
+    background-color: #f1f9ff;
+}
+
+/* src/pages/JobApplications.css */
+input.form-control::placeholder {
+    color: #ADD8E6;
+    opacity: 1;
+}
+input.form-control:-ms-input-placeholder { /* IE10-11 */
+    color: #ADD8E6;
+}
+input.form-control::-ms-input-placeholder { /* Microsoft Edge */
+    color: #ADD8E6;
+}

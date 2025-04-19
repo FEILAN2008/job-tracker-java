@@ -1,7 +1,10 @@
+import './JobApplications.css';
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Table, Button } from "react-bootstrap";
 import { Pagination } from "react-bootstrap";
+
+
 
 // Define enum type in frontend to match backend ApplicationStatus
 enum ApplicationStatus {
@@ -19,6 +22,7 @@ interface JobApplication {
     dateApplied: string;
     status: ApplicationStatus;
 }
+
 
 const JobApplications: React.FC = () => {
     // State to store all applications
@@ -42,7 +46,7 @@ const JobApplications: React.FC = () => {
     //  Calculate total pages based on applications
     const totalPages = Math.ceil(applications.length / pageSize);
     //  Handle pagination button click
-    // 🟦 Slice the data for current page
+    // Slice the data for current page
     const paginatedApplications = filteredApplications.slice(
         (currentPage - 1) * pageSize,
         currentPage * pageSize
@@ -66,8 +70,6 @@ const JobApplications: React.FC = () => {
         }
         return items;
     };
-
-
 
 
     //  Return appropriate color for each status
@@ -109,9 +111,12 @@ const JobApplications: React.FC = () => {
             });
             setCompany("");
             setPosition("");
-            fetchApplications(); // Refresh the list
+            await fetchApplications();
+            window.alert('Application added successfully!');
+            // Refresh the list
         } catch (error) {
             console.error("Failed to add application:", error);
+            window.alert("Failed to add application. Please try again.");
         }
     };
 
@@ -146,7 +151,8 @@ const JobApplications: React.FC = () => {
 
     return (
         <div className="container mt-4">
-            <h1 className="text-center fw-bold display-4">Job Application Tracker</h1>
+            <h1 className="text-center fw-bold display-4"
+                style={{ color: '#0056B3' }}>Job Application Tracker</h1>
 
             <form onSubmit={handleAddApplication} className="mb-4">
 
@@ -206,18 +212,25 @@ const JobApplications: React.FC = () => {
                               color: white;
                               border: none;
                               padding: 5px 10px;
-                              border-radius: 4px;
-                                                            
+                              border-radius: 4px;                                                           
                             }
+                            
+                            .custom-table thead th {
+                            background-color: #1F3A54 !important;
+                            color: white !important;
+                            }
+                          
                           `}
                 </style>
 
                 <div className="mb-3">
-                    <label className="form-label mb-3">Company Name ：</label>
+                    <label className="form-label mb-3"
+                           style={{ color: '#0B69A3', fontWeight: 600 }}>Company Name ：</label>
                     <input
                         type="text"
                         className="form-control form-control-lg"
-                        style={{width: "90%", fontSize: "1.0rem", marginTop: "10px"}}
+                        style={{width: "90%", fontSize: "1.0rem", marginTop: "10px",borderRadius: "0.75rem",height: "2.5rem" }}
+                        placeholder="enter company"
                         value={company}
                         onChange={(e) => setCompany(e.target.value)}
                         required
@@ -225,17 +238,22 @@ const JobApplications: React.FC = () => {
                 </div>
 
                 <div className="mb-3">
-                    <label className="form-label mb-2">Position ： </label>
+                    <label className="form-label mb-2"
+                           style={{ color: '#0B69A3', fontWeight: 600 }}>Position ： </label>
                     <input
                         type="text"
                         className="form-control form-control-lg"
-                        style={{width: "90%", fontSize: "1.0rem", marginTop: "10px"}}
+                        style={{width: "90%", fontSize: "1.0rem", marginTop: "10px",borderRadius: "0.75rem",height: "2.5rem"}}
+                        placeholder="enter position"
                         value={position}
                         onChange={(e) => setPosition(e.target.value)}
                         required
                     />
                 </div>
-                <button type="submit" className="btn-submit" style={{marginTop: "10px"}}>Add New Job Application
+                <button type="submit"
+                        className="btn-submit"
+                        style={{marginTop: "10px",borderRadius: "0.75rem",height: "2.5rem"}}
+                        >Add New Job Application
                 </button>
             </form>
 
@@ -243,7 +261,7 @@ const JobApplications: React.FC = () => {
                 <input
                     type="text"
                     className="form-control"
-                    style={{width: "90%", fontSize: "1.0rem", marginTop: "10px"}}
+                    style={{width: "90%", fontSize: "1.0rem", marginTop: "10px",borderRadius: "0.75rem",height: "2.5rem"}}
                     placeholder="Search by company or position"
                     value={searchTerm}
                     onChange={(e) => {
@@ -254,16 +272,22 @@ const JobApplications: React.FC = () => {
             </div>
 
 
-            <h2 className="mb-3">Job Applications</h2>
-            <Table striped bordered hover responsive>
-                <thead className="fs-5">
+            <h2 className="mb-3"
+                style={{ color: '#0B69A3'}}>Job Applications</h2>
+            <Table className="table-primary"
+                   striped
+                   bordered
+                   hover
+                   responsive>
+                {/* Dark‑blue header with white text */}
+                <thead>
                 <tr>
-                    <th>Company</th>
-                    <th>Position</th>
-                    <th>Date Applied</th>
-                    <th>Status</th>
-                    <th>Update</th>
-                    <th>Delete</th>
+                    <th style={{backgroundColor: '#003366', color: 'white'}}>Company</th>
+                    <th style={{backgroundColor: '#003366', color: 'white'}}>Position</th>
+                    <th style={{backgroundColor: '#003366', color: 'white'}}>Date Applied</th>
+                    <th style={{backgroundColor: '#003366', color: 'white'}}>Status</th>
+                    <th style={{backgroundColor: '#003366', color: 'white'}}>Update</th>
+                    <th style={{backgroundColor: '#003366', color: 'white'}}>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
