@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/pages/jobapplications.tsx"],"version":"5.7.3"}
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/hooks/useinstallprompt.ts","./src/pages/jobapplications.tsx"],"errors":true,"version":"5.7.3"}

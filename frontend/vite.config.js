@@ -9,7 +9,7 @@ export default defineConfig({
     VitePWA({
       devOptions: { enabled: true },
 
-      registerType: 'autoUpdate', // Automatically update the service worker
+    registerType: 'autoUpdate', // Automatically update the service worker
     includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
     manifest: {
       id: '/',
@@ -50,6 +50,7 @@ export default defineConfig({
   })
   ],
   server: {
+    host: true,
     port: 5173,
     proxy: {
       '/api': {
