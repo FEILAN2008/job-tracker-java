@@ -21,6 +21,11 @@ A Progressive Web App (PWA) for tracking and managing your job applications.
 - [License](#license)
 
 ---
+## 🎬 Live Demo
+
+<p align="center">
+  <img src="job application tracker demo.gif" alt="App Demo" width="700px" />
+</p>
 
 ## 🔥 Features
 
