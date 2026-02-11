@@ -1,45 +1,53 @@
 # Job Application Tracker
 
-A Progressive Web App (PWA) for tracking and managing your job applications.
+## TL;DR
+- A full-stack Java + React Progressive Web App built independently
+- Demonstrates REST API design, persistence, and modern frontend architecture
+- Implements PWA app shell, service worker auto-update, and responsive UI
+- Designed as a realistic, production-style CRUD application
+
+---
+
+A **Progressive Web App (PWA)** for tracking and managing job applications, built to demonstrate end-to-end full-stack development using Java and modern frontend tooling.
 
 **Technologies:** Spring Boot (Java 17), React, TypeScript, Vite, Bootstrap 5, H2 (dev), PostgreSQL (prod), `vite-plugin-pwa`.
 
 ---
 
-## 📋 Table of Contents
-
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-  - [Backend Setup](#backend-setup)
-  - [Frontend Setup](#frontend-setup)
-- [Running Locally](#running-locally)
-- [PWA Installation](#pwa-installation)
-- [Version & Roadmap](#version--roadmap)
-- [Contributing](#contributing)
-- [License](#license)
-
----
 ## 🎬 Live Demo
 
 <p align="center">
   <img src="job application tracker demo.gif" alt="App Demo" width="700px" />
 </p>
 
+*The demo showcases creating job applications, updating statuses, pagination, and PWA installation behavior.*
+
+---
+
 ## 🔥 Features
 
-- Create, read, update status, and delete job applications
-- Color‑coded statuses:
+- Create, read, update, and delete job applications (full CRUD)
+- Color-coded application statuses:
   - **Applied** (blue)
   - **Interview** (orange)
   - **Offer** (green)
   - **Rejected** (gray)
-- Search by company or position
-- Pagination for large lists
-- App Shell only caches static resources (HTML/JS/CSS/icons); dynamic data (job applications) requires online API and is unavailable offline
-- Service Worker auto‑update
-- Responsive UI with Bootstrap 5
+- Search by company name or position title
+- Pagination for large datasets
+- PWA **App Shell** architecture:
+  - Static assets (HTML / JS / CSS / icons) are cached
+  - Dynamic data requires an online backend API
+- Service Worker auto-update
+- Responsive UI built with Bootstrap 5
+
+---
+
+## 🧠 Architecture Overview
+
+- **Backend:** Spring Boot REST API handling business logic and persistence
+- **Frontend:** React + TypeScript SPA communicating via JSON APIs
+- **PWA Layer:** App shell caching using Workbox via `vite-plugin-pwa`
+- **Persistence:** H2 (file mode) for local development, PostgreSQL for production
 
 ---
 
@@ -50,13 +58,13 @@ A Progressive Web App (PWA) for tracking and managing your job applications.
 | Backend  | Java 17, Spring Boot 3.2.4, JPA, H2 (dev), PostgreSQL (prod) |
 | Frontend | React 18, TypeScript, Vite, Bootstrap 5                      |
 | PWA      | `vite-plugin-pwa`, Workbox caching                           |
-| Database | H2 (file mode for development), Heroku Postgres (production) |
+| Database | H2 (file mode for development), PostgreSQL (production)     |
 
 ---
 
 ## ⚙️ Prerequisites
 
-- Java 17 SDK
+- Java 17 SDK
 - Maven
 - Node.js (v16+) & npm
 - Git
