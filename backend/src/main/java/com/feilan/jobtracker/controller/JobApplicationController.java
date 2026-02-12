@@ -90,4 +90,15 @@ public class JobApplicationController {
         jobApplicationService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    // Add to JobApplicationController
+    @PutMapping("/{id}/details")
+    public ResponseEntity<JobApplication> updateDetails(
+            @PathVariable Long id,
+            @RequestBody JobApplication updatedApp
+    ) {
+        // The logic needs to be implemented in the Service layer
+        Optional<JobApplication> result = jobApplicationService.updateDetails(id, updatedApp);
+        return result.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
 }

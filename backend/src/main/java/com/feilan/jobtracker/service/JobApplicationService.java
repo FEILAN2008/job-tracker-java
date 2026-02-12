@@ -25,6 +25,10 @@ public class JobApplicationService {
 
     // Create a new job application
     public JobApplication create(JobApplication jobApplication) {
+            // Ensure note is never null
+        if (jobApplication.getNote() == null) {
+            jobApplication.setNote("");
+        }
         return jobApplicationRepository.save(jobApplication);
     }
 
@@ -50,4 +54,17 @@ public class JobApplicationService {
     public void delete(Long id) {
         jobApplicationRepository.deleteById(id);
     }
+    // Add to JobApplicationService
+public Optional<JobApplication> updateDetails(Long id, JobApplication updatedApp) {
+    return jobApplicationRepository.findById(id).map(app -> {
+        // Update the source and note fields
+        app.setSource(updatedApp.getSource());
+        app.setNote(updatedApp.getNote());
+        
+        // You can also update other fields like position here if needed
+        // app.setPosition(updatedApp.getPosition());
+        
+        return jobApplicationRepository.save(app);
+    });
+}
 }
