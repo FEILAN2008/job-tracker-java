@@ -21,6 +21,8 @@ interface JobApplication {
     position: string;
     dateApplied: string;
     status: ApplicationStatus;
+    source?: string; 
+    note?: string;
 }
 
 
@@ -30,6 +32,9 @@ const JobApplications: React.FC = () => {
     // State for form input fields
     const [company, setCompany] = useState("");
     const [position, setPosition] = useState("");
+
+    const [source, setSource] = useState("");
+
     const [statusMap, setStatusMap] = useState<Record<number, ApplicationStatus>>({});
 
     const [searchTerm, setSearchTerm] = useState('');
@@ -39,6 +44,21 @@ const JobApplications: React.FC = () => {
             app.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
             app.position.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    //  Added function to handle individual Note updates 
+    const handleNoteUpdate = async (id: number, newNote: string) => {
+        try {
+            await axios.put(`/api/job-application-tracker/${id}/details`, {
+                note: newNote,
+                // Keep the source the same when updating notes
+                source: applications.find(app => app.id === id)?.source 
+            });
+            // Update the local state to show the new note immediately
+            setApplications(prev => prev.map(app => app.id === id ? { ...app, note: newNote } : app));
+        } catch (error) {
+            console.error("Error updating note:", error);
+        }
+    };
 
 
     const [currentPage, setCurrentPage] = useState(1);  // current page number
@@ -108,9 +128,12 @@ const JobApplications: React.FC = () => {
                 position,
                 dateApplied: new Date().toISOString().split("T")[0],
                 status: ApplicationStatus.APPLIED,
+                source: source,
+                note: ""
             });
             setCompany("");
             setPosition("");
+            setSource("");
             await fetchApplications();
             window.alert('Application added successfully!');
             // Refresh the list
@@ -250,6 +273,20 @@ const JobApplications: React.FC = () => {
                         required
                     />
                 </div>
+
+                {/* Source Input field */}
+                <div className="mb-3">
+                    <label className="form-label mb-2" style={{ color: '#0B69A3', fontWeight: 600 }}>Source ： </label>
+                    <input
+                        type="text"
+                        className="form-control form-control-lg"
+                        style={{width: "90%", fontSize: "1.0rem", marginTop: "10px", borderRadius: "0.75rem", height: "2.5rem"}}
+                        placeholder="e.g. LinkedIn, Seek"
+                        value={source}
+                        onChange={(e) => setSource(e.target.value)}
+                    />
+                </div>
+
                 <button type="submit"
                         className="btn-submit"
                         style={{marginTop: "10px",borderRadius: "0.75rem",height: "2.5rem"}}
@@ -285,8 +322,10 @@ const JobApplications: React.FC = () => {
                     <th style={{backgroundColor: '#003366', color: 'white'}}>Company</th>
                     <th style={{backgroundColor: '#003366', color: 'white'}}>Position</th>
                     <th style={{backgroundColor: '#003366', color: 'white'}}>Date Applied</th>
+                    <th style={{backgroundColor: '#003366', color: 'white'}}>Source</th>                 
                     <th style={{backgroundColor: '#003366', color: 'white'}}>Status</th>
                     <th style={{backgroundColor: '#003366', color: 'white'}}>Update</th>
+                    <th style={{backgroundColor: '#003366', color: 'white'}}>Note</th> 
                     <th style={{backgroundColor: '#003366', color: 'white'}}>Delete</th>
                 </tr>
                 </thead>
@@ -296,6 +335,7 @@ const JobApplications: React.FC = () => {
                         <td>{app.company}</td>
                         <td>{app.position}</td>
                         <td>{app.dateApplied}</td>
+                        <td>{app.source || "-"}</td>          
                         <td style={{fontWeight: "bold", color: getStatusColor(app.status)}}>
                             {app.status}
                         </td>
@@ -316,6 +356,15 @@ const JobApplications: React.FC = () => {
                             <button onClick={() => handleUpdateStatus(app.id, statusMap[app.id])}
                                     className="btn-update">Update
                             </button>
+                        </td>
+                        <td>
+                            <input 
+                                type="text"
+                                className="form-control form-control-sm"
+                                defaultValue={app.note || ""}
+                                onBlur={(e) => handleNoteUpdate(app.id, e.target.value)}
+                                placeholder="Add note..."
+                            />
                         </td>
                         <td>
                             <button
