@@ -1,7 +1,7 @@
 # Job Application Tracker
 
 ## TL;DR
-- A full-stack Java + React Progressive Web App built independently
+- A production-style full-stack Java + React Progressive Web App built independently
 - Demonstrates REST API design, persistence, and modern frontend architecture
 - Implements PWA app shell, service worker auto-update, and responsive UI
 - Designed as a realistic, production-style CRUD application
@@ -17,10 +17,10 @@ A **Progressive Web App (PWA)** for tracking and managing job applications, buil
 ## 🎬 Live Demo
 
 <p align="center">
-  <img src="job application tracker demo.gif" alt="App Demo" width="700px" />
+  <img src="job-application-tracker-demo-v1.1.0.gif" alt="App Demo" width="700px" />
 </p>
 
-*The demo showcases creating job applications, updating statuses, pagination, and PWA installation behavior.*
+*The demo showcases creating job applications, updating statuses, pagination, source tracking, note editing, and PWA installation behavior.*
 
 ---
 
@@ -33,6 +33,9 @@ A **Progressive Web App (PWA)** for tracking and managing job applications, buil
   - **Offer** (green)
   - **Rejected** (gray)
 - Search by company name or position title
+- Track application source (LinkedIn, Seek, Referral, etc.)
+- Editable notes for each job application
+- Backend persistence for source and notes fields
 - Pagination for large datasets
 - PWA **App Shell** architecture:
   - Static assets (HTML / JS / CSS / icons) are cached
@@ -44,7 +47,8 @@ A **Progressive Web App (PWA)** for tracking and managing job applications, buil
 
 ## 🧠 Architecture Overview
 
-- **Backend:** Spring Boot REST API handling business logic and persistence
+- **Backend:** Spring Boot REST API handling business logic, status updates, and entity persistence
+- **Data Model:** Extended entity to support Source and Notes fields
 - **Frontend:** React + TypeScript SPA communicating via JSON APIs
 - **PWA Layer:** App shell caching using Workbox via `vite-plugin-pwa`
 - **Persistence:** H2 (file mode) for local development, PostgreSQL for production
@@ -128,6 +132,15 @@ npm install
 
 ## 🏷️ Version & Roadmap
 
+**v1.1.0** (2026-02-12)
+
+- Added Source field
+- Added editable Notes field
+- Extended backend entity model
+- Minor UI improvements
+
+---
+
 **v1.0.0** (2025-05-01)
 
 - PWA WebApp: React+Vite frontend, Spring Boot backend
@@ -136,7 +149,7 @@ npm install
 
 **Roadmap**
 
-- **v1.1.0**
+- **v1.2.0**
 
   - Deploy backend to Heroku with Postgres
   - Add user authentication (JWT)
